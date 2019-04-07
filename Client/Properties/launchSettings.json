@@ -4,7 +4,7 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:57728",
+      "applicationUrl": "http://localhost:58012",
       "sslPort": 0
     }
   },
@@ -17,11 +17,11 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TresemiusSecurity.Server": {
+    "Client": {
       "commandName": "Project",
       "launchBrowser": false,
-      "launchUrl": "help",
-      "applicationUrl": "http://localhost:5000",
+      "launchUrl": "api/values",
+      "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

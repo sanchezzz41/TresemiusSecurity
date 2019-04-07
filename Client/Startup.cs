@@ -5,9 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
-using TresemiusSecurity.Server.Domains;
 
-namespace TresemiusSecurity.Server
+namespace Client
 {
     public class Startup
     {
@@ -25,7 +24,6 @@ namespace TresemiusSecurity.Server
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie();
-            services.AddScoped<UserService>();
             services.AddMemoryCache();
             services.AddSwaggerGen(opt =>
             {
@@ -42,7 +40,6 @@ namespace TresemiusSecurity.Server
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseAuthentication();
 
             app.UseStaticFiles();
@@ -53,7 +50,6 @@ namespace TresemiusSecurity.Server
                 a.SwaggerEndpoint("/swagger/v1/swagger.json", "API");
                 a.RoutePrefix = "help";
             });
-
             app.UseMvc();
         }
     }
