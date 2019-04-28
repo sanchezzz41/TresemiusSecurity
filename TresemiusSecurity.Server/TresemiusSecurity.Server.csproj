@@ -13,7 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cipher\Cipher.csproj" />
-    <ProjectReference Include="..\Web.Models\Web.Models.csproj" />
+    <ProjectReference Include="..\Security2.Rsa\Security2.Rsa.csproj" />
+    <ProjectReference Include="..\Web.Models2\Web.Models2.csproj" />
   </ItemGroup>
 
 </Project>

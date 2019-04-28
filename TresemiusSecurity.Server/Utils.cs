@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Web.Models
+namespace TresemiusSecurity.Server
 {
     public static class Utils
     {

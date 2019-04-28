@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Security2.Rsa;
 using Swashbuckle.AspNetCore.Swagger;
 using TresemiusSecurity.Server.Domains;
 
@@ -33,6 +34,10 @@ namespace TresemiusSecurity.Server
 
                 opt.DescribeAllEnumsAsStrings();
             });
+            var rsaKeys = RsaService.GetKeyPair();
+            var serverKeys = new RsaServerKeys(rsaKeys.PublicKey, rsaKeys.PrivateKey);
+            services.AddRsaService();
+            services.AddSingleton(serverKeys);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using Security2.Rsa;
 using TresemiusSecurity.Server.Domains;
 using Web.Models;
 
@@ -21,28 +22,41 @@ namespace TresemiusSecurity.Server.Controllers
         //Тут хранится вся важная инфа(В памяти)
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<UserController> _logger;
+        private readonly RsaService _rsaService;
+        private readonly RsaServerKeys _rsaServerKeys;
 
 
-        public UserController(UserService userService, IMemoryCache memoryCache, ILogger<UserController> logger)
+
+        public UserController(UserService userService, IMemoryCache memoryCache, ILogger<UserController> logger, RsaService rsaService, RsaServerKeys rsaServerKeys)
         {
             _userService = userService;
             _memoryCache = memoryCache;
             _logger = logger;
+            _rsaService = rsaService;
+            _rsaServerKeys = rsaServerKeys;
         }
 
         [HttpPost("Register")]
         public async Task<Guid> Register(UserModel model)
         {
+            model.Email = _rsaService.Decrypt<string>(model.Email, _rsaServerKeys.PrivateKey);
+            model.Password = _rsaService.Decrypt<string>(model.Password, _rsaServerKeys.PrivateKey);
             return await Task.FromResult(_userService.Register(model));
         }
 
         [HttpPost("Login")]
         public async Task Login(UserModel model)
         {
+            model.Email = _rsaService.Decrypt<string>(model.Email, _rsaServerKeys.PrivateKey);
+            model.Password = _rsaService.Decrypt<string>(model.Password, _rsaServerKeys.PrivateKey);
+            model.Key = _rsaService.Decrypt<string>(model.Key, _rsaServerKeys.PrivateKey);
+
             var user = _userService.Login(model);
             if (user == null)
                 throw new Exception("Такого пользователя не существует.");
-            _logger.LogInformation($"Пользователь c ником:{model.Email} зашёл на сайт.");
+            _logger.LogInformation($"Пользователь c email: {model.Email} зашёл на сайт и установил ключ {model.Key}.");
+
+            _memoryCache.Set(model.Email + "key", model.Key);
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Email),

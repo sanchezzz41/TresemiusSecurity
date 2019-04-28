@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cipher;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -13,6 +14,8 @@ namespace TresemiusSecurity.Server.Controllers
         private readonly IMemoryCache _memoryCache;
         private readonly ILogger<MessageController> _logger;
 
+        public static List<MessageInfo> _list = new List<MessageInfo>();
+
         public MessageController(IMemoryCache memoryCache, ILogger<MessageController> logger)
         {
             _memoryCache = memoryCache;
@@ -23,29 +26,35 @@ namespace TresemiusSecurity.Server.Controllers
         public async Task<string> CreateMessage(MessageInfo model)
         {
             _logger.LogInformation($"Пришедшие данные:{model.Text}/{model.Date}");
-            var key = _memoryCache.GetKey2Laba(HttpContext.GetLogin());
+            var key = _memoryCache.Get<string>(HttpContext.GetLogin() + "key");
             _logger.LogInformation($"Ключ пользователя {HttpContext.GetLogin()}: {key}");
 
             var text = TresCipher.Decrypt(model.Text, key);
             var date = TresCipher.Decrypt(model.Date, key);
+            model.Text = text;
+            model.Date = date;
             _logger.LogInformation($"Дешифрованный текст: {text}");
             _logger.LogInformation($"Дешифрованный дата: {date}");
-
+            _list.Add(model);
             return "OK";
         }
 
         [HttpGet]
-        public async Task<MessageInfo> GetTestMessage()
+        public async Task<List<MessageInfo>> GetTestMessage()
         {
-            var key = _memoryCache.GetKey2Laba(HttpContext.GetLogin());
+            var key = _memoryCache.Get<string>(HttpContext.GetLogin() + "key");
             _logger.LogInformation($"Ключ пользователя {HttpContext.GetLogin()}: {key}");
-            var model = new MessageInfo("Test Test text");
-            model.Text = TresCipher.Encrypt(model.Text, key);
-            model.Date = TresCipher.Encrypt(model.Date, key);
-            _logger.LogInformation($"Зашифрованный текст: {model.Text}");
-            _logger.LogInformation($"Зашифрованная дата: {model.Date}");
+            var returnedList = new List<MessageInfo>();
+            foreach (var item in _list)
+            {
+                returnedList.Add(new MessageInfo
+                {
+                    Date = TresCipher.Encrypt(item.Date, key),
+                    Text = TresCipher.Encrypt(item.Text, key)
 
-            return model;
+                });
+            }
+            return returnedList;
         }
     }
 }

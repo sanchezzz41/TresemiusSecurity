@@ -1,0 +1,37 @@
+﻿<Window x:Class="Tresemius.Wpf.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tresemius.Wpf"
+        mc:Ignorable="d"
+        Title="Registration" Height="450" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="135*"/>
+            <ColumnDefinition Width="176*"/>
+            <ColumnDefinition Width="283*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.ColumnSpan="3" Grid.Column="0">Регистрация</TextBlock>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Column="0"  Grid.Row="1">Email</TextBlock>
+        <TextBox  Grid.Column="1" Grid.Row="1" Name="Email" Grid.ColumnSpan="2" Margin="40,20"></TextBox>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Column="0" Grid.Row="2">Password</TextBlock>
+        <TextBox  Grid.Column="1" Grid.Row="2" Margin="40,20" Name="Password" Grid.ColumnSpan="2"></TextBox>
+
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Margin="30,15,29.667,14.667" Click="RegistrationPost">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Grid.Column="0" Grid.Row="9">Регистрация</TextBlock>
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="2" Margin="30.333,15,30.333,14.667" Click="Cancel">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Grid.Column="0" Grid.Row="9">Отмена</TextBlock>
+        </Button>
+    </Grid>
+</Window>
