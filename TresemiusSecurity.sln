@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TresemiusSecurity.Server", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cipher", "Cipher\Cipher.csproj", "{7DDB57A2-F9DB-44F9-A61B-D04247AC3569}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{7B389F13-AFC2-4D6C-B421-AB6BA841633C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Security2.Rsa", "Security2.Rsa\Security2.Rsa.csproj", "{4B291C87-414D-405F-B0F2-0B162680B2A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tresemius.Wpf", "Tresemius.Wpf\Tresemius.Wpf.csproj", "{99CFDCB8-042B-4C23-9347-6EF064568D0B}"
@@ -29,10 +27,6 @@ Global
 		{7DDB57A2-F9DB-44F9-A61B-D04247AC3569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DDB57A2-F9DB-44F9-A61B-D04247AC3569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DDB57A2-F9DB-44F9-A61B-D04247AC3569}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B389F13-AFC2-4D6C-B421-AB6BA841633C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B389F13-AFC2-4D6C-B421-AB6BA841633C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B389F13-AFC2-4D6C-B421-AB6BA841633C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B389F13-AFC2-4D6C-B421-AB6BA841633C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B291C87-414D-405F-B0F2-0B162680B2A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B291C87-414D-405F-B0F2-0B162680B2A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B291C87-414D-405F-B0F2-0B162680B2A2}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -20,13 +20,44 @@ namespace TresemiusSecurity.Server.Domains
         public Guid Register(UserModel model)
         {
             var resultUser = new User(model.Email, model.Password);
+            if (model.Password.Length < 4)
+                throw new Exception("Длина пароля должна быть больше 5");
             _users.Add(resultUser);
             return resultUser.Id;
         }
 
         public User Login(UserModel model)
         {
-            return _users.First(x => x.Email == model.Email && model.Password == x.Password);
+            var user = _users.First(x => x.Email == model.Email);
+            if (ValidatePassword(model.Password, user.Password))
+                return user;
+            return null;
+        }
+
+        /// <summary>
+        /// Валидация пароля(по рандому)
+        /// </summary>
+        /// <param name="inputPassword"></param>
+        /// <param name="userPassword"></param>
+        /// <returns></returns>
+        private bool ValidatePassword(string inputPassword, string userPassword)
+        {
+            var random = new Random();
+            var checkDict = new Dictionary<int, char>();
+            for (int i = 0; i < userPassword.Length / 2; i++)
+            {
+                var index = random.Next(0, userPassword.Length);
+                var letter = userPassword[index];
+                checkDict.Add(index, letter);
+            }
+
+            foreach (var item in checkDict)
+            {
+                if (inputPassword[item.Key] != item.Value)
+                    return false;
+            }
+
+            return true;
         }
     }
 
@@ -46,4 +77,5 @@ namespace TresemiusSecurity.Server.Domains
             Password = password;
         }
     }
+    
 }
